@@ -56,14 +56,16 @@ function AzureAPI(config) {
         this.getAuthToken(function (err, result) {
             //get the first redirect
             request.get({
-                uri: this.modelURI('asset'), 
-                headers: this.defaultHeaders(), 
-                followRedirect: false, 
+                uri: this.modelURI('asset'),
+                headers: this.defaultHeaders(),
+                followRedirect: false,
                 strictSSL: true
             }, function (err, res) {
-                if (res.statusCode === 301) {
-                    this.config.base_url = res.headers.location;
-                    console.log("changing base url to",  this.config.base_url);
+                if(res) {
+                    if (res.statusCode === 301) {
+                        this.config.base_url = res.headers.location;
+                        console.log("changing base url to",  this.config.base_url);
+                    }
                 }
                 cb(err, result);
             }.bind(this));
@@ -103,9 +105,9 @@ function AzureAPI(config) {
         cb = cb || function () {};
 
         request.post({
-            uri: this.config.oauth_url, 
+            uri: this.config.oauth_url,
             form: {
-                grant_type: 'client_credentials', 
+                grant_type: 'client_credentials',
                 client_id: this.config.client_id,
                 client_secret: this.config.client_secret,
                 scope: 'urn:WindowsAzureMediaServices'
@@ -121,7 +123,7 @@ function AzureAPI(config) {
             if (result.error) {
                 return cb(result);
             }
-            
+
             this.oauth = result;
             this.oauth.time_started = Date.now();
             cb(err, result.access_token);
@@ -133,8 +135,8 @@ function AzureAPI(config) {
 
         request.get({
             uri: this.modelURI(model, id),
-            headers: this.defaultHeaders(), 
-            followRedirect: false, 
+            headers: this.defaultHeaders(),
+            followRedirect: false,
             strictSSL: true
         }, function (err, res) {
             if (res.statusCode == 200) {
@@ -152,8 +154,8 @@ function AzureAPI(config) {
 
         request.get({
             uri: this.modelURI(model),
-            headers: this.defaultHeaders(), 
-            followRedirect: false, 
+            headers: this.defaultHeaders(),
+            followRedirect: false,
             strictSSL: true,
             qs: query
         }, function (err, res) {
@@ -201,10 +203,10 @@ function AzureAPI(config) {
         cb = cb || function () {};
 
         request({
-            method: 'DELETE', 
+            method: 'DELETE',
             uri: this.modelURI(model, id),
             headers: this.defaultHeaders(),
-            followRedirect: false, 
+            followRedirect: false,
             strictSSL: true
         }, function (err, res) {
             if (res.statusCode == 204) {

@@ -13,8 +13,8 @@ var calls = {
         this.getRequest(modelName, id, cb);
     },
 
-    list: function (cb) {
-        this.listRequest(modelName, cb);
+    list: function (cb, query) {
+        this.listRequest(modelName, cb, query);
     },
 
     update: function updateAsset(id, data, cb) {
@@ -30,8 +30,8 @@ var calls = {
 
         request.get({
             uri: this.modelURI('job', id) + '/OutputMediaAssets',
-            headers: this.defaultHeaders(), 
-            followRedirect: false, 
+            headers: this.defaultHeaders(),
+            followRedirect: false,
             strictSSL: true,
             qs: query
         }, function (err, res) {
