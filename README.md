@@ -1,5 +1,8 @@
 # Azure Media for Node.js
 
+## Note:
+This is a fork of the repo https://github.com/fritzy/node-azure-media. I encourage you to use the original one. I will be using it to add some extra features to it. It can have potential bugs untill mentioned otherwise.
+
 Azure's Media REST API provides a way to store, encode, and deliver media (video and images).
 This library makes using the API easier.
 
