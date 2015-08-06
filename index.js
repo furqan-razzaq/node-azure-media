@@ -139,7 +139,9 @@ function AzureAPI(config) {
             followRedirect: false,
             strictSSL: true
         }, function (err, res) {
-            if (res.statusCode == 200) {
+            if(!res) {
+                cb(err || 'Expected 200 status, received: null');
+            } else if (res.statusCode == 200) {
                 var data = JSON.parse(res.body).d;
                 var dobj = models[model].create(data);
                 cb(err, dobj);
@@ -160,7 +162,9 @@ function AzureAPI(config) {
             qs: query
         }, function (err, res) {
             var objs = [];
-            if (res.statusCode == 200) {
+            if(!res) {
+                cb(err || 'Expected 200 status, received: null');
+            } else if (res.statusCode == 200) {
                 var data = JSON.parse(res.body).d.results;
                 data.forEach(function (rawd) {
                     var dobj = models[model].create(rawd);
@@ -189,7 +193,9 @@ function AzureAPI(config) {
             followRedirect: false,
             strictSSL: true
         }, function (err, res) {
-            if (res.statusCode == 201) {
+            if(!res) {
+                cb(err || 'Create ' + model + ': Expected 201 status, received: null');
+            } else if (res.statusCode == 201) {
                 var data = JSON.parse(res.body).d;
                 var dobj = models[model].create(data);
                 cb(err, dobj);
@@ -209,7 +215,9 @@ function AzureAPI(config) {
             followRedirect: false,
             strictSSL: true
         }, function (err, res) {
-            if (res.statusCode == 204) {
+            if(!res) {
+                cb(err || 'Expected 204 status, received: null');
+            } else if (res.statusCode == 204) {
                 cb(err);
             } else {
                 cb(err || 'Expected 204 status, received: ' + res.statusCode);
@@ -234,7 +242,9 @@ function AzureAPI(config) {
             strictSSL: true,
             body: JSON.stringify
         }, function (err, res) {
-            if (res.statusCode == 200) {
+            if(!res) {
+                cb(err || 'Expected 200 status, received: null');
+            } else if (res.statusCode == 200) {
                 var data = JSON.parse(res.body).d;
                 var dobj = models[model].create(data);
                 cb(err, dobj);
