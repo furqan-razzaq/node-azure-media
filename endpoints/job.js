@@ -57,7 +57,11 @@ var calls = {
             followRedirect: false,
             strictSSL: true,
         }, function (err, res) {
-            cb(err, res.statusCode);
+            var statusCode = null;
+            if(res) {
+                statusCode = res.statusCode;
+            }
+            cb(err, statusCode);
         });
     },
 
